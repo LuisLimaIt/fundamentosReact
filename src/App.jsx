@@ -21,10 +21,8 @@ export default () => (
         <div className="cards">
             <Card titulo="#08 - Renderização Condicional" color="#982395">
                 <ParOuImpar numero={21}></ParOuImpar>
-                <UsuarioInfo usuario={{ nome: 'Luis Paulo'}} />
+                <UsuarioInfo  usuario={{ nome: 'Luis'}}/>
                 <UsuarioInfo usuario={{ nome: 'Pedro'}} />
-                <UsuarioInfo usuario={{ }} />
-                <UsuarioInfo usuario={{ }} />
                 <UsuarioInfo usuario={{ }} />
             </Card>
 
