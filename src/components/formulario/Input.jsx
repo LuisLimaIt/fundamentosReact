@@ -18,9 +18,13 @@ export default (props) => {
                 <input 
                     className="input" 
                     value={valor} 
-                    onChange={quandoMudar}/>
+                    onChange={quandoMudar}
+                />
                 <input 
-                    className="input" value={undefined} />
+                    className="input" 
+                    value={valor} 
+                />
+                <input className="input" value={undefined} />
             </div>
         </div>
     );
