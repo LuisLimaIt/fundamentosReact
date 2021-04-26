@@ -1,35 +1,52 @@
+import './Mega.css';
 import React, { useState } from 'react';
-import gerarNumeros from './gerarNumeros';
 
 export default props => {
 
-    const [num, setNum] = useState(6);
-
-
-    const gerarNumeros = qtde => {
-        const jogoPronto = [];
+    function gerarNumeroNaoContido(min, max, array) {
+        const aleatorio = parseInt(Math.random() * ((max + 1) - min) + min);
+        return array.includes(aleatorio) 
+        ? gerarNumeroNaoContido(min, max, array)
+        : aleatorio
+    }
     
-        for(let i = 0; i < qtde; i++){
-            const numAleatorio = parseInt(Math.random() * (60 - 1) + 1);
-            jogoPronto.push(numAleatorio)
-        }
-        return jogoPronto;
+    function gerarNumeros(qtde) {
+        const numeros = Array(qtde)
+            .fill(0)
+            .reduce((nums) => {
+                const novoNumero = gerarNumeroNaoContido(1, 60, nums)
+                console.log([ ...nums, novoNumero ])
+                return [ ...nums, novoNumero ]
+            }, [])
+            .sort((n1, n2) => n1 - n2)
+    
+        return numeros
     }
 
-    const handleChange = e => {
-        setNum(e.target.value);
-    } 
+    const [qtde, setQtde] = useState(props.qtde || 6);
+    const numerosIniciais = gerarNumeros(qtde);
+    const [numeros, setNumeros] = useState(numerosIniciais);
     
 
     return (
-        <div>
-            <h2>Números gerados: {gerarNumeros(7).map(numero => numero + " ")}</h2>
-            <label htmlFor="qtdeNum">Qtde de Números: </label>
-            <input 
-                id="qtdeNum" 
-                type="number" 
-                value={num} 
-                onChange={handleChange}/>
+        <div className='mega'>
+            <h2>Mega</h2>
+            <h3>{numeros.join(', ')}</h3>
+            <div>
+                <label htmlFor="qtdeNum">Qtde de Números: </label>
+                <input 
+                    min="6"
+                    max="15"
+                    id="qtdeNum" 
+                    type="number" 
+                    value={qtde} 
+                    onChange={(e) =>  {
+                        setQtde(+e.target.value)
+                        setNumeros(gerarNumeros(+e.target.value))
+                    }}
+                />
+                </div>
+            <button onClick={_ => setNumeros(gerarNumeros(qtde))}>Gerar Números</button>
         </div>
     )
 }
