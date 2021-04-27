@@ -26,12 +26,23 @@ export default props => {
     const [qtde, setQtde] = useState(props.qtde || 6);
     const numerosIniciais = gerarNumeros(qtde);
     const [numeros, setNumeros] = useState(numerosIniciais);
+
+    function numerosSorteados() {
+    
+        return numeros.map((numero, i) => {
+            return (
+                <h3 className="numeros-sorteados" key={i}>{numero}</h3>
+            );
+        });
+    }
     
 
     return (
         <div className='mega'>
             <h2>Mega</h2>
-            <h3>{numeros.join(', ')}</h3>
+            <div className="numeros">
+                {numerosSorteados()} 
+            </div>      
             <div>
                 <label htmlFor="qtdeNum">Qtde de Números: </label>
                 <input 
